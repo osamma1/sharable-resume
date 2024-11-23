@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="resume-builder.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <header class="header">
+      <h2>Dynamic <b>Resume Generator </b></h2>
+      <div style="display: flex">
+        <div class="but">
+          <i
+            class="fa-solid fa-pen-to-square editbtn"
+            id="editbtn"
+            onclick="editResume()"
+          ></i>
+          <i
+            class="fa-solid fa-download editbtn"
+            id="savebtn"
+            onclick="savedChanges()"
+          ></i>
+        </div>
+        <button id="creatResume" onclick="createResume()">Create resume</button>
+      </div>
+    </header>
+
+    <div class="form-box" id="form" style="display: none">
+      <form onsubmit="generateResume(event)" class="form" method="post">
+        <!-- about Section  -->
+        <div class="aboutSec">
+          <div class="about"><h2>About Section</h2></div>
+          <div class="aboutFields">
+            <div class="input-box">
+              <label for="name">Your Name:</label>
+              <input
+                type="text"
+                id="name"
+                placeholder="Enter your Name"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <label for="father-name">Father Name:</label>
+              <input
+                type="text"
+                id="father-name"
+                placeholder="Enter Father Name"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <label for="Designation"> Designation:</label>
+              <input
+                type="text"
+                id="Designation"
+                placeholder="Enter Designation"
+                required
+              />
+            </div>
+
+            <div class="input-box">
+              <label for="No">Phone No:</label>
+              <input
+                type="number"
+                id="No"
+                placeholder="Enter Number"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <label for="address">Address:</label>
+              <input
+                type="text"
+                id="address"
+                placeholder="Enter Address"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter Email"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <label for="webLink">Web Link:</label>
+              <input
+                type="text"
+                id="webLink"
+                placeholder="Enter Link"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <label for="Linkedin">Linkedin id Link:</label>
+              <input
+                type="text"
+                id="Linkedin"
+                placeholder="Enter Link"
+                required
+              />
+            </div>
+
+            <div class="input-box">
+              <label for="profile">Profile:</label>
+              <input
+                type="text"
+                id="profile"
+                placeholder="Enter Profile Section"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <label for="Image" class="customFileLabel">
+                Select your Profile Pick</label
+              >
+              <input type="file" id="Image" class="fileInput" accept="image/*" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Section  -->
+
+        <div class="educationSec">
+          <div class="education"><h2>Education</h2></div>
+          <div class="educationFields" id="eduBox">
+            <div class="input-box edu-box">
+              <label for="degree">Degree:</label>
+              <input
+                type="text"
+                id="degree"
+                placeholder="Enter your Degree"
+                required
+              />
+            </div>
+            <div class="input-box edu-box">
+              <label for="Institude">Institude Name:</label>
+              <input
+                type="text"
+                id="Institude"
+                placeholder="Enter your Institude Name"
+                required
+              />
+            </div>
+            <div class="input-box edu-box">
+              <label for="complete"> Complete Year:</label>
+              <input
+                type="text"
+                id="Complete"
+                placeholder="Enter completed Year"
+                required
+              />
+            </div>
+          </div>
+          <div class="button-box">
+            <button class="btn" type="button" onclick="moreEducation()">
+              +
+            </button>
+            <button class="btn" type="button" onclick="removeEducation()">
+              -
+            </button>
+          </div>
+        </div>
+
+        <!-- language Section -->
+
+        <div class="languageSec">
+          <div class="language"><h2>Language</h2></div>
+          <div class="languageFields" id="languageBox">
+            <div class="input-box languageBox">
+              <label for="language">Language:</label>
+              <input
+                type="text"
+                id="language"
+                placeholder="Enter your Language"
+                required
+              />
+            </div>
+          </div>
+          <div class="button-box">
+            <button class="btn" type="button" onclick="moreLanguage()">
+              +
+            </button>
+            <button class="btn" type="button" onclick="removeLanguage()">
+              -
+            </button>
+          </div>
+        </div>
+
+        <!-- Interest Section  -->
+
+        <div class="InterestSec">
+          <div class="Interest"><h2>Interest</h2></div>
+          <div class="InterestFields" id="InterestBox">
+            <div class="input-box InterestBox">
+              <label for="Interest">Interest:</label>
+              <input
+                type="text"
+                id="Interest"
+                placeholder="Enter your Interest"
+                required
+              />
+            </div>
+          </div>
+          <div class="button-box">
+            <button class="btn" type="button" onclick="moreInterest()">
+              +
+            </button>
+            <button class="btn" type="button" onclick="removeInterest()">
+              -
+            </button>
+          </div>
+        </div>
+
+        <!-- Work Experience Section -->
+        <div class="ProjectsSec">
+          <div class="Projects"><h2>Work Experience</h2></div>
+          <div class="ProjectsFields" id="WorkExperienceBox">
+            <div class="input-box Box">
+              <label for="JobTitle">Job Title:</label>
+              <input
+                type="text"
+                id="JobTitle"
+                placeholder="Enter your Job Title"
+                required
+              />
+            </div>
+            <div class="input-box Box">
+              <label for="JobWork">Job Work:</label>
+              <input
+                type="text"
+                id="JobWork"
+                placeholder="Enter job work"
+                required
+              />
+            </div>
+            <div class="input-box Box">
+              <label for="StartEndDate">Start Date - End Date:</label>
+              <input
+                type="text"
+                id="StartEndDate"
+                placeholder="Enter starting, ending date"
+                required
+              />
+            </div>
+          </div>
+          <div class="button-box">
+            <button class="btn" type="button" onclick="moreWorkExperience()">
+              +
+            </button>
+            <button class="btn" type="button" onclick="removeWorkExperience()">
+              -
+            </button>
+          </div>
+        </div>
+
+        <!-- project Section  -->
+
+        <div class="ProjectsSec">
+          <div class="Projects"><h2>Projects</h2></div>
+          <div class="ProjectsFields" id="ProjectsBox">
+            <div class="input-box project-Box">
+              <label for="ProTitle">Title:</label>
+              <input
+                type="text"
+                id="ProTitle"
+                placeholder="Enter your Project Title"
+                required
+              />
+            </div>
+            <div class="input-box project-Box">
+              <label for="prodescription">Description:</label>
+              <input
+                type="text"
+                id="prodescription"
+                placeholder="Enter Project Description"
+                required
+              />
+            </div>
+            <div class="input-box project-Box">
+              <label for="projectLink"> Link:</label>
+              <input
+                type="text"
+                id="projectLink"
+                placeholder="Enter Project Link"
+                required
+              />
+            </div>
+          </div>
+          <div class="button-box">
+            <button class="btn" type="button" onclick="moreProjects()">
+              +
+            </button>
+            <button class="btn" type="button" onclick="removeProjects()">
+              -
+            </button>
+          </div>
+        </div>
+
+        <!-- skills Section  -->
+
+        <div class="SkillSec">
+          <div class="skills"><h2>Skills</h2></div>
+          <div class="skillsFields" id="skillBox">
+            <div class="input-box skill-box">
+              <label for="skillName">Skill Name:</label>
+              <input
+                type="text"
+                id="skillName"
+                placeholder="Enter skill Name"
+                required
+              />
+            </div>
+
+            <div class="input-box skill-box">
+              <label for="skillPercentag">Skill Percentag %:</label>
+              <input
+                type="text"
+                id="skillPercentag"
+                placeholder="Enter your proficiency percentage for this skill."
+                required
+              />
+            </div>
+          </div>
+          <div class="button-box">
+            <button class="btn" type="button" onclick="moreSkill()">+</button>
+            <button class="btn" type="button" onclick="removeSkill()">-</button>
+          </div>
+        </div>
+        <button type="submit" class="button">Generate Resume</button>
+      </form>
+    </div>
+
+    <!-- Resume -->
+
+    <div class="resumeBuilder" id="build">
+      <div class="resume" id="Resume">
+        <!-- section One -->
+        <div class="profileSec">
+          <div class="imagbox">
+            <img
+              src="pro.jfif"
+              class="profileImag"
+              alt="Profile picture of Tehreem Asghar"
+              id="ResumeImage"
+            />
+          </div>
+          <div class="introductionbox edit">
+            <h2 class="text" id="ResumeName">Usama</h2>
+            <h2 class="text" id="ResumeFName">Faraz</h2>
+            <h3 class="text developer" id="ResumeDesignation">
+              Front-End Developer
+            </h3>
+          </div>
+        </div>
+        <!-- section two -->
+        <div class="profileSec02">
+          <div class="addressbox edit">
+            <div class="add">
+              <i class="fa-solid fa-phone icon"></i>
+              <p id="ResumeNumber">03219211586</p>
+            </div>
+            <div class="add">
+              <i class="fa-solid fa-location-dot icon"></i>
+              <p id="ResumeAddress">Block 8, Clifton, Karachi</p>
+            </div>
+
+            <div class="add">
+              <i class="fa-solid fa-envelope icon"></i>
+              <p id="ResumeEmail">osamafaraz99@gmail.com</p>
+            </div>
+            <div class="add">
+              <i class="fa-brands fa-dribbble icon"></i>
+              <p id="ResumeWebLink">https://my-portfolio-usamas-projects-9097b589.vercel.app/</p>
+            </div>
+
+            <div class="add">
+              <i class="fa-brands fa-linkedin icon"></i>
+              <p id="ResumeLinkedinLink">
+                https://www.linkedin.com/in/usama-faraz-7006b2232/
+              </p>
+            </div>
+          </div>
+          <div class="summary edit">
+            <h2>Profile</h2>
+            <p id="ResumeProfile">
+              I am a web developer with strong skills in HTML, CSS, JavaScript,
+              TypeScript, and React, and I'm currently diving deeper into
+              Next.js. I am passionate about building dynamic, responsive
+              applications and focus on writing clean, efficient code that
+              enhances functionality and user experience. I enjoy
+              problem-solving through code and staying updated on industry
+              trends to bring fresh ideas to my projects. My goal is to create
+              impactful, user-friendly websites that make a difference
+            </p>
+          </div>
+        </div>
+        <!-- Section03 -->
+        <div class="section03">
+          <div class="left">
+            <div class="education-box">
+              <div class="line">
+                <h2 class="edu">EDUCATION</h2>
+              </div>
+              <div class="alledu edit" id="alleducation">
+                <div>
+                  <h3>BS in Cyber Security</h3>
+                  <h4>Dawood University, Karachi</h4>
+                </div>
+
+                <div>
+                  <h3>Intermediate in Computer Science</h3>
+                  <h4>SM Science College, Karachi</h4>
+                  
+                </div>
+                
+              </div>
+
+              <div class="line">
+                <h2 class="edu">Language</h2>
+              </div>
+              <div class="Language edit">
+                <ul id="LanguageSkills">
+                  <li>English</li>
+                  <li>Urdu</li>
+                </ul>
+              </div>
+
+              <div class="line">
+                <h2 class="edu">Interest</h2>
+              </div>
+              <div class="interest edit" id="InterestData">
+                <h4>Web Development</h4>
+                <h4>Cyber Security</h4>
+                <h4>Problem Solving</h4>
+                <h4>Reading Tech Blogs</h4>
+                <h4>Learning New Technologies</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="projectSec">
+              <h2 class="Work">Work Experience</h2>
+              <div id="allExp" class="edit">
+                <div>
+                  <div class="exTitle">
+                    <h3>Web Development Intern - NUEXUS Technologie</h3>
+                    <h4 class="start">August 2024 - Present</h4>
+                  </div>
+                  <p class="para">
+                    Developed an Employment Management Web App, contributed to
+          building responsive front-end components, and implemented secure
+          deployment practices for client projects. Focused on improving
+          application performance and user experience.
+                  </p>
+                </div>
+              </div>
+              <h2 class="projectHeading">Projects</h2>
+              <div id="projectList" class="edit">
+                <div class="projects">
+                  <h3 class="projectName">Perfect Packages E-Commerce Store</h3>
+                  <p>
+                    Responsive e-commerce store built with HTML, CSS, and JavaScript
+                    for packaging tape products. Features include day/night mode,
+                    swipe options for product selection, and an attractive interface
+                    optimized for usability.
+                  </p>
+                  <p class="projectLink">
+                    <strong>Project Link:</strong>
+                    <a href="e-commerce-store-pied.vercel.app" target="_blank"
+                      >e-commerce-store-pied.vercel.app</a
+                    >
+                  </p>
+                </div>
+
+                <div class="projects">
+                  <h3 class="projectName">Dynamic Quiz Game</h3>
+                  <p>
+                    An interactive quiz application created with React and JavaScript.
+                    Includes login/signup forms with validation, difficulty levels,
+                    timer, progress bar, and a leaderboard. Features creative themes
+                    and responsive design.
+                  </p>
+                  <p class="projectLink">
+                    <strong>Project Link:</strong>
+                    <a href="https://dynamic-quiz-game.vercel.app/" target="_blank"
+            >https://dynamic-quiz-game.vercel.app/</a
+                    >
+                  </p>
+                  <div class="toggle-box">
+                    <button class="toggle-button" onclick=" toggleProjects()">
+                      <i class="fa-solid fa-angle-down"></i>
+                    </button>
+                  </div>
+                </div>
+                <div id="toggle-project">
+                  <div class="projects">
+                    <h3 class="projectName">Employee and Task Manager</h3>
+                    <p>
+                      A professional employee and task management web application
+                      developed using HTML, CSS, and JavaScript. Includes advanced
+                      features such as task assignments, progress tracking, and role
+                      management.
+                    </p>
+                    <p class="projectLink">
+                      <strong>Project Link:</strong>
+                      <a
+                        href="https://employee-management-web-app.vercel.app//"
+                        target="_blank"
+                        >https://employee-management-web-app.vercel.app/</a
+                      >
+                    </p>
+                  </div>
+
+                  <div class="projects">
+                    <h3 class="projectName">Personal Portfolio</h3>
+                    <p>
+                      This is a simple Personal Portfolio using HTML, CSS and Javascript
+                    </p>
+                    <p class="projectLink">
+                      <strong>Project Link:</strong>
+                      <a
+                        href="portfolio-beige-kappa-27.vercel.app"
+                        target="_blank"
+                        >portfolio-beige-kappa-27.vercel.app</a
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          
+            <div class="skillSec">
+              <h2 class="skillName">skills</h2>
+              <div class="skillBox edit" id="allSkills">
+                <div class="skill">
+                  <h4>html</h4>
+                  <div class="outerBox">
+                    <div class="innerBox"></div>
+                  </div>
+                </div>
+                <div class="skill">
+                  <h4>Css</h4>
+                  <div class="outerBox">
+                    <div class="innerBox css"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <h4>JavaScript</h4>
+                  <div class="outerBox">
+                    <div class="innerBox js"></div>
+                  </div>
+                </div>
+                <div class="skill">
+                  <h4>TypeScript</h4>
+                  <div class="outerBox">
+                    <div class="innerBox ts"></div>
+                  </div>
+                </div>
+                <div class="skill">
+                  <h4>React</h4>
+                  <div class="outerBox">
+                    <div class="innerBox react"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <h4>Next.js</h4>
+                  <div class="outerBox">
+                    <div class="innerBox next.js"></div>
+                  </div>
+                </div>
+
+                <div class="skill">
+                  <h4>Tailwind</h4>
+                  <div class="outerBox">
+                    <div class="innerBox next.js"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="downloadResume" class="btnStyle" onclick="downloadResume()">
+      Download Resume
+    </button>
+    <button id="copyLink" class="btnStyle" onclick="copyLink()">
+      Copy Link
+    </button>
+    
+  </body>
+  <script src="formButtons.js"></script>
+  <script src="resume.js"></script>
+  <script src="editeResume.js"></script>
+</html>
